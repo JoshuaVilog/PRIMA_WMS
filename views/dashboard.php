@@ -27,4 +27,7 @@
     //include "modal/modalAdd.php";
     //include "modal/modalEdit.php";
     ?>
+    <script>
+        $("#menuDashboard").addClass("active");
+    </script>
 </div>

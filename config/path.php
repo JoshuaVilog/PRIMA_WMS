@@ -1,6 +1,6 @@
 <?php
 
-$rootFolder = "WMS";
+$rootFolder = "1_WMS";
 // $pluginFolder = $rootFolder."/assets";
 $pluginFolder = "2_VILOG_ASSETS";
 $systemTitle = "WIP MANAGEMENT SYSTEM";

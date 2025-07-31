@@ -4,6 +4,7 @@ class Main {
     constructor(){
         this.systemLocalStorageTitle = "template";
         this.lsEmployeeList = this.systemLocalStorageTitle +"-employee-list";
+        this.lsProcessList = this.systemLocalStorageTitle +"-process-list";
 
     }
 
@@ -75,7 +76,7 @@ class Main {
             data: {},
             datatype: "json",
             success: function(response){
-                console.log(response);
+                // console.log(response);
                 let list = response.data;
 
                 localStorage.setItem(self.lsEmployeeList, JSON.stringify(list));
@@ -84,6 +85,32 @@ class Main {
                 console.log("Error:"+JSON.stringify(err));
             },
         });
+    }
+    GetProcessRecords(){
+        let self = this;
+        $.ajax({
+            url: "php/controllers/Process/Records.php",
+            method: "POST",
+            data: {},
+            datatype: "json",
+            success: function(response){
+                // console.log(response);
+                let list = response.data;
+
+                localStorage.setItem(self.lsProcessList, JSON.stringify(list));
+            },
+            error: function(err){
+                console.log("Error:"+JSON.stringify(err));
+            },
+        });
+    }
+    GetStatusList(){
+        let list = [
+            {a: '1', b: "GOOD",},
+            {a: '2', b: "NG",},
+        ];
+
+        return list;
     }
 
     
@@ -109,6 +136,18 @@ class Main {
             return result ? result.EMPLOYEE_NAME: "";
         }
     }
+    SetProcess(id){
+        let list = JSON.parse(localStorage.getItem(this.lsProcessList));
+        let result = list.find(element => element.RID === id);
+
+        return result ? result.PROCESS_DESC: "";
+    }
+    SetStatus(id){
+        let list = this.GetStatusList();
+        let result = list.find(element => element.a === id);
+
+        return result ? result.b: "";
+    }
 
 }
 
@@ -116,3 +155,4 @@ class Main {
 let main = new Main();
 
 main.GetEmployeeRecords();
+main.GetProcessRecords();
